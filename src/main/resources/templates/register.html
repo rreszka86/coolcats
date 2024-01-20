@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>coolcats</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: SiteHeader}"></header>
+<form th:action="@{/register/submit}" method="post" th:object="${user}">
+    <label for="username">Login:</label>
+    <input type="text" name="username" id="username" th:field="*{username}" required>
+    <label for="passwd">Hasło:</label>
+    <input type="password" name="passwd" id="passwd" th:field="*{passwd}" required>
+    <label for="email">E-mail:</label>
+    <input type="text" name="email" id="email" th:field="*{email}" required>
+    <button type="submit">Zarejestruj</button>
+</form>
+</body>
+</html>

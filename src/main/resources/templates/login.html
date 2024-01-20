@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>coolcats</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: SiteHeader}"></header>
+<form th:action="@{/login}" method="post">
+    <label for="username">Login:</label>
+    <input type="text" name="username" id="username" required>
+    <label for="passwd">Hasło:</label>
+    <input type="password" name="passwd" id="passwd" required>
+    <button type="submit">Zaloguj</button>
+</form>
+</body>
+</html>

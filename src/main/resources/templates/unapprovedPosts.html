@@ -6,11 +6,5 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<div>
-    <div th:each="post : ${posts}">
-        <h2 th:text="${post.title}"></h2>
-        <img th:src="@{${post.picturePath}}" th:alt="${post.title}">
-    </div>
-</div>
 </body>
 </html>

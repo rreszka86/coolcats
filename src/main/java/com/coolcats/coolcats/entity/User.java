@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,21 +19,22 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @JoinColumn(name = "UserName", nullable = false)
-    private String name;
+    @Column(name = "UserName", nullable = false, unique = true)
+    private String username;
 
-    @JoinColumn(name = "UserPasswd", nullable = false)
+    @Column(name = "UserPasswd", nullable = false)
     private String passwd;
 
-    @JoinColumn(name = "UserEmail", nullable = false)
+    @Column(name = "UserEmail", nullable = false, unique = true)
     private String email;
 
-    @JoinColumn(name = "UserStatus", nullable = false)
-    private int status;
+    @Column(name = "UserStatus")
+    private String status;
 
-    @JoinColumn(name = "JoinDate", nullable = false)
+    @Column(name = "JoinDate")
+    @CreationTimestamp
     private Timestamp joinDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -1,29 +1,37 @@
 package com.coolcats.coolcats.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Post")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @JoinColumn(name = "PostTitle", nullable = false)
+    @Column(name = "PostTitle", nullable = false)
     private String title;
 
-    @JoinColumn(name = "CreatedAt", nullable = false)
+    @Column(name = "CreatedAt", nullable = false)
     private Timestamp createdAt;
 
-    @JoinColumn(name = "PostLikes", nullable = false)
+    @Column(name = "PostLikes", nullable = false)
     private int likes;
 
-    @JoinColumn(name = "PicturePath", nullable = false)
+    @Column(name = "PicturePath", nullable = false)
     private String picturePath;
 
-    @JoinColumn(name = "PostStatus", nullable = false)
+    @Column(name = "PostStatus", nullable = false)
     private int status;
 
     @ManyToOne
