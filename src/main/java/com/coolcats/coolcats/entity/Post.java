@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -22,7 +23,8 @@ public class Post {
     @Column(name = "PostTitle", nullable = false)
     private String title;
 
-    @Column(name = "CreatedAt", nullable = false)
+    @Column(name = "CreatedAt")
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "PostLikes", nullable = false)
@@ -32,7 +34,7 @@ public class Post {
     private String picturePath;
 
     @Column(name = "PostStatus", nullable = false)
-    private int status;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)

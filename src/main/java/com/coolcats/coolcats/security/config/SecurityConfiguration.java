@@ -37,7 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("register", "register/submit").anonymous()
                         .requestMatchers("/","login", "/unapprovedPosts").permitAll()
-                        .requestMatchers("/createPost").hasAnyAuthority("user", "admin")
+                        .requestMatchers("/createPost", "/createPost/submit").hasAnyAuthority("user", "admin")
                 )
                 .formLogin(login -> login
                         .loginPage("/login")

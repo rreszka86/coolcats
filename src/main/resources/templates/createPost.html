@@ -6,11 +6,11 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<form th:action="@{/createPost/submit}" method="post">
+<form th:action="@{/createPost/submit}" method="post" th:object="${post}">
     <label for="pictureTitle">Tytuł:</label>
-    <input type="text" name="pictureTitle" id="pictureTitle" required>
+    <input type="text" name="pictureTitle" id="pictureTitle" th:field="*{title}" required>
     <label for="pictureLink">Link do zdjęcia:</label>
-    <input type="text" name="pictureLink" id="pictureLink" required>
+    <input type="text" name="pictureLink" id="pictureLink" th:field="*{picturePath}" required>
     <button type="submit">Dodaj</button>
 </form>
 </body>
