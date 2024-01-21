@@ -5,8 +5,10 @@
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
 <div class="posts">
-    <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='verified'">
-        <h2 th:text="${post.title}"></h2>
+    <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='verified'" th:with="userId=${post.getUser().getId()}">
+        <h2 th:text="${post.title} + ${userId}"></h2>
+        <span th:text="'Utworzone ' + ${#dates.format(post.getCreatedAt(), 'dd-MM-yyyy')} + ' przez '"></span>
+        <a th:href="@{/profile/__${userId}__}" th:text="${post.getUser().getUsername()}"></a>
         <img th:src="@{${post.picturePath}}" th:alt="${post.title}">
     </div>
 </div>

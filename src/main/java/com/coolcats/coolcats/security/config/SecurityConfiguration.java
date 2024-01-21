@@ -37,7 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("register", "register/submit").anonymous()
                         .requestMatchers("/","login", "/unapprovedPosts","/css/**","/img/**").permitAll()
-                        .requestMatchers("/createPost", "/createPost/submit","/profile").hasAnyAuthority("user", "admin")
+                        .requestMatchers("/createPost", "/createPost/submit","/profile", "/profile/**").hasAnyAuthority("user", "admin")
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                         .defaultSuccessUrl("/",true)
                         .permitAll()
                 )
+                .rememberMe(remember -> remember.key("5678%^&*(FGVBHNJK^%&*VBNghbnjsd"))
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")

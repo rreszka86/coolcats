@@ -1,7 +1,9 @@
 package com.coolcats.coolcats.controller;
 
 import com.coolcats.coolcats.dto.PostDto;
+import com.coolcats.coolcats.entity.Post;
 import com.coolcats.coolcats.entity.User;
+import com.coolcats.coolcats.repository.PostRepository;
 import com.coolcats.coolcats.repository.UserRepository;
 import com.coolcats.coolcats.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +14,42 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class PostController {
     private final PostService postService;
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
     @Autowired
-    public PostController(PostService postService, UserRepository userRepository)
+    public PostController(PostService postService, UserRepository userRepository, PostRepository postRepository)
     {
 
         this.postService = postService;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/")
     public String showIndex(Model model)
     {
-        model.addAttribute("posts", postService.getAllPosts());
+        model.addAttribute("posts", postService.getAllPosts().stream()
+                .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                .collect(Collectors.toList()));
         return "index";
     }
 
     @GetMapping("/unapprovedPosts")
     public String showUnapprovedPosts(Model model)
     {
-        model.addAttribute("posts", postService.getAllPosts());
+        model.addAttribute("posts", postService.getAllPosts().stream()
+                .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                .collect(Collectors.toList()));
         return "unapprovedPosts";
     }
 
@@ -63,6 +75,26 @@ public class PostController {
         }
 
         postService.savePost(postDto);
-        return "createPost";
+        return "unapprovedPosts";
     }
+
+    @PostMapping("/profile/{userId}/delete/{postId}")
+    public String deletePost(@PathVariable Long userId, @PathVariable Long postId, Model model)
+    {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            if (post.getUser().getId().equals(userId)) {
+                postRepository.deleteById(postId);
+            } else {
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/error";
+        }
+
+        return "redirect:/profile/" + userId;
+    }
+
 }

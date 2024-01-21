@@ -2,7 +2,7 @@ package com.coolcats.coolcats.security.service;
 
 import com.coolcats.coolcats.entity.User;
 import com.coolcats.coolcats.repository.UserRepository;
-import com.coolcats.coolcats.security.model.UserModel;
+import com.coolcats.coolcats.security.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +22,6 @@ public class UserService implements UserDetailsService {
         {
             throw new UsernameNotFoundException("User Not Found");
         }
-        return new UserModel(user);
+        return new CustomUserDetails(user);
     }
 }

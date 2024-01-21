@@ -7,6 +7,7 @@
 <div class="posts" >
     <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='unverified'">
         <h2 th:text="${post.title}"></h2>
+        <h3 th:text="'Utworzone ' + ${#dates.format(post.getCreatedAt(), 'dd-MM-yyyy')} + ' przez ' + ${post.getUser().getUsername()}"></h3>
         <img th:src="@{${post.picturePath}}" th:alt="${post.title}">
     </div>
 </div>
