@@ -57,4 +57,10 @@ public class UserController {
     {
         return "login";
     }
+
+    @GetMapping("/profile")
+    public String showProfile()
+    {
+        return "profile";
+    }
 }

@@ -2,20 +2,22 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <header th:fragment="SiteHeader">
-    <a th:href="@{'/'}"><h1>coolcats</h1></a>
     <nav>
-        <a th:href="@{'/unapprovedPosts'}">Niezatwierdzone posty</a>
-        <a th:href="@{'/createPost'}">Dodaj post</a>
+        <a th:href="@{'/'}"><img src="/img/coolcats-logo.png" alt="coolcats logo" class="logo"></a>
+       <div class="post-nav">
+           <a th:href="@{'/unapprovedPosts'}">Niezatwierdzone posty</a>
+           <a th:href="@{'/createPost'}">Dodaj post</a>
+       </div>
 
-        <div sec:authorize="isAuthenticated()">
-<!--            <a th:href="@{'/logout'}">Wyloguj się</a>-->
+        <div class="user-nav" sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
+                <p>Witaj, <a sec:authentication="name" th:href="@{'/profile'}"></a></p>
                 <button type="submit">Wyloguj</button>
             </form>
         </div>
-        <div sec:authorize="!isAuthenticated()">
-            <a th:href="@{'/register'}">Zarejestruj się</a>
-            <a th:href="@{'/login'}">Zaloguj się</a>
+        <div class = "user-nav" sec:authorize="!isAuthenticated()">
+            <a class="register-btn" th:href="@{'/register'}">Zarejestruj się</a>
+            <a class="login-btn" th:href="@{'/login'}">Zaloguj się</a>
         </div>
     </nav>
 </header>

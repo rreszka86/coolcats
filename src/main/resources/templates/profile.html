@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: SiteHead}">
+</head>
+<body>
+<header th:replace="~{fragments/header :: SiteHeader}"></header>
+<div>
+<p>Nazwa użytkownika: <p sec:authentication="name"></p></p>
+<p>E-mail: <p sec:authentication="name"></p></p>
+<p>Data dołączenia: <p sec:authentication="name"></p></p>
+<p>Status konta: <p sec:authentication="name"></p></p>
+</div>
+</body>
+</html>

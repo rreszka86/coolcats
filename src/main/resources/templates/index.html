@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>coolcats</title>
+<head th:replace="~{fragments/head :: SiteHead}">
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<div>
-    <div th:each="post : ${posts}">
+<div class="posts">
+    <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='verified'">
         <h2 th:text="${post.title}"></h2>
         <img th:src="@{${post.picturePath}}" th:alt="${post.title}">
     </div>

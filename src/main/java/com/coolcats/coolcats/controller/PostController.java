@@ -35,8 +35,9 @@ public class PostController {
     }
 
     @GetMapping("/unapprovedPosts")
-    public String showUnapprovedPosts()
+    public String showUnapprovedPosts(Model model)
     {
+        model.addAttribute("posts", postService.getAllPosts());
         return "unapprovedPosts";
     }
 

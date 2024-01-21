@@ -1,0 +1,103 @@
+:root {
+    --color-nav: #ceaf9f;
+}
+    *{
+        margin: 0;
+        background-color: #b9b1b1;
+    }
+    .logo{
+        background-color: var(--color-nav);
+        height: 130px;
+    }
+    nav{
+        position: relative;
+        height: 150px;
+        background-color: var(--color-nav);
+        font-family: fantasy;
+        font-size: 25px;
+        font-weight: bold;
+        padding: 30px;
+        /*border: 1px solid red;*/
+    }
+    nav>a{
+        background-color: var(--color-nav);
+    }
+    nav>.post-nav>a{
+        background-color: var(--color-nav);
+        color: #36261d;
+        text-decoration: none;
+        padding: 10px;
+        /*border:1px solid green;*/
+    }
+    nav>.post-nav>a:hover{
+        text-shadow: 0 0 10px #232020;
+        color: #ece4e4;
+    }
+    nav>.user-nav{
+        position: absolute;
+        background-color: var(--color-nav);
+        display: inline;
+        right: 10px;
+        top: 10px;
+    }
+    nav>.user-nav>a{
+        background-color: var(--color-nav);
+        text-decoration: none;
+        text-align: right;
+        display: block;
+        font-size: 20px;
+        margin: 5px;
+
+    }
+    nav>.user-nav>a:hover{
+        text-shadow: 0 0 10px #232020;
+        color: #ece4e4;
+    }
+    .register-btn{
+        color: #623838;
+    }
+    .login-btn {
+        color: #4c5441;
+    }
+    .post-nav{
+        position: absolute;
+        margin-left: 10vw;
+        top:55px;
+        width: 50vw;
+        background-color: var(--color-nav);
+        display: inline-flex;
+        justify-content: space-around;
+        /*border:1px solid blue;*/
+    }
+    /*KONIEC NAWIGACJI------------------------------------------*/
+
+    .posts{
+        margin-left: 10vw;
+        width: 80vw;
+        background-color: #f3efef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .post{
+        background-color: #d9bbb5;
+        margin-top: 50px;
+        padding: 30px;
+        border-radius: 10px;
+    }
+    .posts>.post>h2{
+        display: block;
+        margin:0 0 30px 0;
+        padding: 10px 0;
+        width: 45vw;
+        /*padding: 10px 10vw;*/
+        background-color: #f5e4dd;
+        color: #312d30;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 10px;
+    }
+    .posts>.post>img{
+        width: 45vw;
+        border-radius: 10px;
+    }
