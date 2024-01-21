@@ -66,12 +66,16 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLogon(@RequestParam(name = "success", required = false) String success, Model model)
+    public String showLogon(@RequestParam(name = "success", required = false) String success, @RequestParam(name = "error", required = false) String error, Model model)
     {
-        if (success!=null) {
+        if (success!=null)
+        {
             model.addAttribute("successMessage", "Rejestracja zakończona sukcesem! Teraz możesz się zalogować!");
         }
-        System.out.println(success);
+        if (error!=null)
+        {
+            model.addAttribute("errorMessage", "Niepoprawne dane logowania!");
+        }
         return "login";
     }
 

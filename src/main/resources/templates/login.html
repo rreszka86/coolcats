@@ -5,6 +5,7 @@
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
 <p th:text="${successMessage}"></p>
+<p th:text="${errorMessage}"></p>
 <form th:action="@{/login}" method="post">
     <h2>Logowanie:</h2>
     <label for="username">Login:</label>

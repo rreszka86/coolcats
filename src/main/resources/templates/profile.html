@@ -14,7 +14,7 @@
     <p th:text="'Status użytkownika: ' + ${user.getStatus()}"></p>
     <p th:text="'E-mail: ' + ${user.getEmail()}"></p>
 </div>
-<div sec:authorize="hasAuthority('admin')">
+<div sec:authorize="hasAuthority('admin')" th:if="${user.getStatus() != 'admin'}">
     <h2>Szczegóły użytkownika:</h2>
     <p th:text="'Status użytkownika: ' + ${user.getStatus()}"></p>
     <p th:text="'E-mail: ' + ${user.getEmail()}"></p>
@@ -24,13 +24,15 @@
     <div class="post" th:each="userpost : ${user.getPosts()}" th:with="postId=${userpost.getId()},userId=${user.getId()}">
         <h2 th:text="${userpost.title}"></h2>
         <span th:text="'Utworzone ' + ${#dates.format(userpost.getCreatedAt(), 'dd-MM-yyyy')}"></span>
-        <form th:if="${#authentication.principal.getUsername() eq user.getUsername()}"
+        <form th:if="${#authentication.principal.getUsername() eq user.getUsername() or #authentication.principal.getAuthority().contains('admin')}"
               th:action="@{/profile/__${userId}__/delete/__${postId}__}" method="post">
             <button type="submit">
                 <img src="/img/delete-btn.png" alt="ikona usuwania" style="width: 30px">
             </button>
-        </form>        <img th:src="@{${userpost.picturePath}}" th:alt="${userpost.title}">
+        </form>
+        <img th:src="@{${userpost.picturePath}}" th:alt="${userpost.title}">
     </div>
+    <p th:if="${user.getPosts().isEmpty()}" th:text="'Brak dodanych postów'"></p>
 </div>
 </body>
 </html>

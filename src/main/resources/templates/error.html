@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: SiteHead}">
+</head>
+<body>
+<div class="site-error">
+    <p>Nastąpił błąd!</p>
+    <a th:href="@{/}" th:text="'Wróć na stronę główną'"></a>
+</div>
+</body>
+</html>

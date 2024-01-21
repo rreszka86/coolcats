@@ -12,10 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,20 +33,38 @@ public class PostController {
     }
 
     @GetMapping("/")
-    public String showIndex(Model model)
+    public String showIndex(@RequestParam(value = "search", required = false) String search, Model model)
     {
-        model.addAttribute("posts", postService.getAllPosts().stream()
-                .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
-                .collect(Collectors.toList()));
+        if (search!=null)
+        {
+            model.addAttribute("posts", postRepository.getAllByTitleContaining(search).stream()
+                    .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                    .collect(Collectors.toList()));
+        }
+        else
+        {
+            model.addAttribute("posts", postService.getAllPosts().stream()
+                    .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                    .collect(Collectors.toList()));
+        }
         return "index";
     }
 
     @GetMapping("/unapprovedPosts")
-    public String showUnapprovedPosts(Model model)
+    public String showUnapprovedPosts(@RequestParam(value = "search", required = false) String search, Model model)
     {
-        model.addAttribute("posts", postService.getAllPosts().stream()
-                .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
-                .collect(Collectors.toList()));
+        if (search!=null)
+        {
+            model.addAttribute("posts", postRepository.getAllByTitleContaining(search).stream()
+                    .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                    .collect(Collectors.toList()));
+        }
+        else
+        {
+            model.addAttribute("posts", postService.getAllPosts().stream()
+                    .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                    .collect(Collectors.toList()));
+        }
         return "unapprovedPosts";
     }
 

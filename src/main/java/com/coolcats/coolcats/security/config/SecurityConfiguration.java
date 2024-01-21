@@ -35,15 +35,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("register", "register/submit").anonymous()
-                        .requestMatchers("/","login", "/unapprovedPosts","/css/**","/img/**").permitAll()
+                        .requestMatchers("register", "register/submit", "login").anonymous()
+                        .requestMatchers("/","/unapprovedPosts","/css/**","/img/**", "/error").permitAll()
                         .requestMatchers("/createPost", "/createPost/submit","/profile", "/profile/**").hasAnyAuthority("user", "admin")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
                         .usernameParameter("username")
                         .passwordParameter("passwd")
-                        .defaultSuccessUrl("/",true)
+                        .defaultSuccessUrl("/",false)
                         .permitAll()
                 )
                 .rememberMe(remember -> remember.key("5678%^&*(FGVBHNJK^%&*VBNghbnjsd"))

@@ -4,6 +4,10 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
+<form th:action="@{/unapprovedPosts}" method="get">
+    <input type="text" name="search" placeholder="Wyszukaj niezatwierdzone posty">
+    <button type="submit"><img src="/img/search-icon.png" alt="ikona wyszukiwania" style="width: 30px"></button>
+</form>
 <div class="posts" >
     <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='unverified'">
         <h2 th:text="${post.title}"></h2>
