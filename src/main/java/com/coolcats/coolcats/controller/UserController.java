@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -35,29 +32,46 @@ public class UserController {
     {
         User existingUser = userRepository.findByUsername(userDto.getUsername());
         if(existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same nickname");
+            result.rejectValue("username", null,
+                    "Konto o takiej nazwie użytkownika już istnieje!");
         }
 
         existingUser = userRepository.findByEmail(userDto.getEmail());
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             System.out.printf(""+ existingUser.getJoinDate());
             result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+                    "Konto z takim adresem email już istnieje!");
+        }
+        String usernameRegex = "^[a-zA-Z0-9_-]{4,100}$";
+        if (!userDto.getUsername().matches(usernameRegex)) {
+            result.rejectValue("username", null, "Nieprawidłowa nazwa użytkonwika! (min. 4 znaki, maks. 100 znaków, dozwolone użycie _-)");
+        }
+        String emailRegex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        if (!userDto.getEmail().matches(emailRegex)) {
+            result.rejectValue("email", null, "Niepoprawny adres email!");
+        }
+        String passwdRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,255}$";
+        if (!userDto.getPasswd().matches(passwdRegex)) {
+            result.rejectValue("passwd", null, "Hasło musi zawierać przynajmniej jedną dużą i małą literę, jedną cyfrę i jeden znak specjalny! (min. 8 znaków)");
         }
 
         if(result.hasErrors()){
+            model.addAttribute("error",result);
             model.addAttribute("user", userDto);
             return "/register";
         }
 
         userService.saveUser(userDto);
-        return "redirect:/register?success";
+        return "redirect:/login?success";
     }
 
     @GetMapping("/login")
-    public String showLogon()
+    public String showLogon(@RequestParam(name = "success", required = false) String success, Model model)
     {
+        if (success!=null) {
+            model.addAttribute("successMessage", "Rejestracja zakończona sukcesem! Teraz możesz się zalogować!");
+        }
+        System.out.println(success);
         return "login";
     }
 

@@ -4,7 +4,9 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
+<p th:text="${successMessage}"></p>
 <form th:action="@{/login}" method="post">
+    <h2>Logowanie:</h2>
     <label for="username">Login:</label>
     <input type="text" name="username" id="username" required>
     <label for="passwd">Hasło:</label>

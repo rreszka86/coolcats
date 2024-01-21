@@ -5,12 +5,16 @@
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
 <form th:action="@{/register/submit}" method="post" th:object="${user}">
+    <h2>Rejestracja:</h2>
     <label for="username">Login:</label>
-    <input type="text" name="username" id="username" th:field="*{username}" required>
+    <input type="text" name="username" id="username" th:field="*{username}" required title="Podaj nazwę!">
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
     <label for="passwd">Hasło:</label>
-    <input type="password" name="passwd" id="passwd" th:field="*{passwd}" required>
+    <input type="password" name="passwd" id="passwd" th:field="*{passwd}" required title="Podaj hasło!">
+    <p th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></p>
     <label for="email">E-mail:</label>
-    <input type="text" name="email" id="email" th:field="*{email}" required>
+    <input type="text" name="email" id="email" th:field="*{email}" required title="Podaj email!">
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
     <button type="submit">Zarejestruj</button>
 </form>
 </body>
