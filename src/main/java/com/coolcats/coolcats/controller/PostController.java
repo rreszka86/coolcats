@@ -96,7 +96,7 @@ public class PostController {
         User user = userRepository.findByUsername(currentUserName);
         postDto.setUser(user);
 
-        String titleRegex = "^[a-zA-Z0-9 ]{3,60}$";
+        String titleRegex = "^[a-zA-Z0-9żółćęśąźńŻÓŁĆĘŚĄŹŃ]{3,60}$";
         if (!postDto.getTitle().matches(titleRegex)) {
             result.rejectValue("title", null, "Niepoprawny tytuł! (dozwolone litery, spacje i cyfry, maks. 60 znaków)");
         }
@@ -187,7 +187,7 @@ public class PostController {
             Post post = optionalPost.get();
             if (post.getUser().getId().equals(userId))
             {
-                String titleRegex = "^[a-zA-Z0-9 ]{3,60}$";
+                String titleRegex = "^[a-zA-Z0-9żółćęśąźńŻÓŁĆĘŚĄŹŃ]{3,60}$";
                 if (!title.matches(titleRegex)) {
                     return "redirect:/error";
                 }
