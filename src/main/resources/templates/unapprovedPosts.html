@@ -9,7 +9,7 @@
     <button class="search-button" type="submit"><img class="search-icon" src="/img/search-icon.png" alt="ikona wyszukiwania"></button>
 </form>
 <div class="posts" >
-    <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='unverified'">
+    <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='unverified'" th:with="userId=${post.getUser().getId()}">
         <h2 th:text="${post.title}"></h2>
         <div>
             <p th:text="'Utworzone ' + ${#dates.format(post.getCreatedAt(), 'dd-MM-yyyy')} + ' przez '"></p>

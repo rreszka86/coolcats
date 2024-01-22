@@ -13,6 +13,7 @@
         <input class="login-element" type="file" name="image" id="image" accept="image/*" required>
         <button class="login-element btn" type="submit">Dodaj</button>
     </form>
+    <p class="login-element" th:if="${error != null}" th:text="${error}" style="color: red;"></p>
 </div>
 </body>
 </html>

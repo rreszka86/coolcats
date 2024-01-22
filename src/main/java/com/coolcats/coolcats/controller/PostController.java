@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,12 +21,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
+@ControllerAdvice
 public class PostController {
     private final PostService postService;
     private final UserRepository userRepository;
@@ -77,8 +77,12 @@ public class PostController {
     }
 
     @GetMapping("/createPost")
-    public String showPostCreation(Model model)
+    public String showPostCreation(Model model, @RequestParam(value = "error", required = false) String error)
     {
+        if(error != null)
+        {
+            model.addAttribute("error","Nastąpił błąd!");
+        }
         PostDto post = new PostDto();
         model.addAttribute("post",post);
         return "createPost";
@@ -109,13 +113,25 @@ public class PostController {
 
         Date dt = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+
         String [] parts = Objects.requireNonNull(file.getContentType()).split("/");
+        List<String> supportedImageExtensions = Arrays.asList("jpg", "jpeg", "png", "gif", "bmp", "tiff", "webp", "svg");
         String newFilename = "post" + dateFormat.format(dt) + "." + parts[1];
+        if(!supportedImageExtensions.contains(parts[0]))
+        {
+            result.rejectValue("title", null, "Plik ma nieprawidłowe rozszerzenie!");
+        }
+
         Path fileNameAndPath = Paths.get(uploadPath, newFilename);
         Files.write(fileNameAndPath, file.getBytes());
         postDto.setPicturePath("/img/posts/" + newFilename);
         postService.savePost(postDto);
         return "redirect:/unapprovedPosts";
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String handleMaxSizeException(MaxUploadSizeExceededException exc, Model model) {
+        return "redirect:/createPost?error";
     }
 
     @PostMapping("/profile/{userId}/delete/{postId}")
@@ -134,6 +150,31 @@ public class PostController {
             return "redirect:/error";
         }
 
+        return "redirect:/profile/" + userId;
+    }
+
+    @PostMapping("/profile/{userId}/verify/{postId}")
+    public String verifyPost(@PathVariable Long userId, @PathVariable Long postId)
+    {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            if (post.getUser().getId().equals(userId))
+            {
+                post.setStatus("verified");
+                postRepository.save(post);
+                System.out.println("Before save: Post Title - " + post.getTitle() + ", User ID - " + post.getUser().getId());
+            }
+            else
+            {
+                return "redirect:/error";
+            }
+        }
+        else
+        {
+            return "redirect:/error";
+        }
         return "redirect:/profile/" + userId;
     }
 

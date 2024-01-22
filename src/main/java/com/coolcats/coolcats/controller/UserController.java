@@ -1,6 +1,7 @@
 package com.coolcats.coolcats.controller;
 
 import com.coolcats.coolcats.dto.UserDto;
+import com.coolcats.coolcats.entity.Post;
 import com.coolcats.coolcats.entity.User;
 import com.coolcats.coolcats.repository.UserRepository;
 import com.coolcats.coolcats.service.UserService;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -88,6 +92,12 @@ public class UserController {
 
         model.addAttribute("user", user);
 
+        List<Post> posts = user.getPosts().stream()
+            .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+            .collect(Collectors.toList());
+
+        model.addAttribute("userposts", posts);
+
         return "profile";
     }
 
@@ -100,6 +110,12 @@ public class UserController {
         {
             return "redirect:/profile?error";
         }
+
+        List<Post> posts = user.getPosts().stream()
+                .sorted((o1, o2) -> Long.compare(o2.getCreatedAt().getTime(), o1.getCreatedAt().getTime()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("userposts", posts);
 
         model.addAttribute("user", user);
         return "profile";

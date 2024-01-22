@@ -176,3 +176,38 @@ nav>.user-nav>a{
 .btn{
     margin:10px auto;
 }
+
+/*PROFIL------------------------------------------*/
+.user-info{
+    text-align: center;
+    background-color: var(--color-nav);
+    width: 45vw;
+    height: 100px;
+    padding: 20px 0;
+    margin: 20px 0px 50px 0px;
+    border-radius: 10px;
+}
+.profile-btn{
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.profile-btn>button>img{
+    width: 30px;
+}
+/*ERROR------------------------------------------*/
+.site-error{
+    text-align: center;
+    background-color: var(--color-content);
+    width: 55vw;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 30px;
+    border-radius: 20px;
+    margin: 200px auto;
+    padding: 0 100px;
+}
+.site-error>a{
+    font-weight: bold;
+}
