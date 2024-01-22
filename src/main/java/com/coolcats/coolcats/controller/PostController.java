@@ -178,4 +178,29 @@ public class PostController {
         return "redirect:/profile/" + userId;
     }
 
+    @PostMapping("/profile/{userId}/modify/{postId}")
+    public String modifyPost(@PathVariable Long userId, @PathVariable Long postId, @ModelAttribute("title") String title)
+    {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            if (post.getUser().getId().equals(userId))
+            {
+                post.setTitle(title);
+                postRepository.save(post);
+                System.out.println("Before save: Post Title - " + post.getTitle() + ", User ID - " + post.getUser().getId());
+            }
+            else
+            {
+                return "redirect:/error";
+            }
+        }
+        else
+        {
+            return "redirect:/error";
+        }
+        return "redirect:/profile/" + userId;
+    }
+
 }

@@ -25,6 +25,13 @@
     <div class="post" th:each="userpost : ${userposts}" th:with="postId=${userpost.getId()},userId=${user.getId()}">
         <h2 th:text="${userpost.title}"></h2>
         <div>
+            <form class="profile-btn edit-title" th:if="${#authentication.principal.getUsername() eq user.getUsername() or #authentication.principal.getAuthority().contains('admin')}"
+                  th:action="@{/profile/__${userId}__/modify/__${postId}__}" method="post">
+                <input class="edit-box" type="text" name="title" required>
+                <button class="edit-icon" type="submit"><img src="/img/modify-icon.png" alt="ikona edycji"></button>
+            </form>
+        </div>
+        <div>
             <p class="profile-btn" th:text="'Utworzone ' + ${#dates.format(userpost.getCreatedAt(), 'dd-MM-yyyy')}"></p>
             <form class="profile-btn" th:if="${#authentication.principal.getUsername() eq user.getUsername() or #authentication.principal.getAuthority().contains('admin')}"
                   th:action="@{/profile/__${userId}__/delete/__${postId}__}" method="post">
