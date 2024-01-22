@@ -1,103 +1,178 @@
 :root {
     --color-nav: #ceaf9f;
+    --color-content:#f3efef;
+    --color-txt: #36261d;
 }
-    *{
-        margin: 0;
-        background-color: #b9b1b1;
-    }
-    .logo{
-        background-color: var(--color-nav);
-        height: 130px;
-    }
-    nav{
-        position: relative;
-        height: 150px;
-        background-color: var(--color-nav);
-        font-family: fantasy;
-        font-size: 25px;
-        font-weight: bold;
-        padding: 30px;
-        /*border: 1px solid red;*/
-    }
-    nav>a{
-        background-color: var(--color-nav);
-    }
-    nav>.post-nav>a{
-        background-color: var(--color-nav);
-        color: #36261d;
-        text-decoration: none;
-        padding: 10px;
-        /*border:1px solid green;*/
-    }
-    nav>.post-nav>a:hover{
-        text-shadow: 0 0 10px #232020;
-        color: #ece4e4;
-    }
-    nav>.user-nav{
-        position: absolute;
-        background-color: var(--color-nav);
-        display: inline;
-        right: 10px;
-        top: 10px;
-    }
-    nav>.user-nav>a{
-        background-color: var(--color-nav);
-        text-decoration: none;
-        text-align: right;
-        display: block;
-        font-size: 20px;
-        margin: 5px;
+*{
+    margin: 0;
+    color: var(--color-txt);
+    text-decoration: none;
+}
+body{
 
-    }
-    nav>.user-nav>a:hover{
-        text-shadow: 0 0 10px #232020;
-        color: #ece4e4;
-    }
-    .register-btn{
-        color: #623838;
-    }
-    .login-btn {
-        color: #4c5441;
-    }
-    .post-nav{
-        position: absolute;
-        margin-left: 10vw;
-        top:55px;
-        width: 50vw;
-        background-color: var(--color-nav);
-        display: inline-flex;
-        justify-content: space-around;
-        /*border:1px solid blue;*/
-    }
-    /*KONIEC NAWIGACJI------------------------------------------*/
+    background-color: #b9b1b1;
+}
+.logo{
+    background-color: var(--color-nav);
+    height: 130px;
+}
+nav{
+    position: relative;
+    height: 150px;
+    background-color: var(--color-nav);
+    font-family: fantasy;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 30px;
+}
+nav>a{
+    background-color: var(--color-nav);
+}
+nav>.post-nav>a{
+    background-color: var(--color-nav);
+    color: var(--color-txt);
+    padding: 10px;
+}
+nav>.post-nav>a:hover{
+    text-shadow: 0 0 10px #232020;
+    color: #ece4e4;
+}
+.post-nav{
+    position: absolute;
+    margin-left: 10vw;
+    top:60px;
+    width: 50vw;
+    background-color: var(--color-nav);
+    display: inline-flex;
+    justify-content: space-around;
+}
+nav>.user-nav{
+    position: absolute;
+    background-color: transparent;
+    display: inline;
+    right: 10px;
+    top: 10px;
+}
+nav>.user-nav>a{
+    background-color: transparent;
+    text-decoration: none;
+    text-align: right;
+    display: block;
+    font-size: 20px;
+    margin: 5px;
 
-    .posts{
-        margin-left: 10vw;
-        width: 80vw;
-        background-color: #f3efef;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .post{
-        background-color: #d9bbb5;
-        margin-top: 50px;
-        padding: 30px;
-        border-radius: 10px;
-    }
-    .posts>.post>h2{
-        display: block;
-        margin:0 0 30px 0;
-        padding: 10px 0;
-        width: 45vw;
-        /*padding: 10px 10vw;*/
-        background-color: #f5e4dd;
-        color: #312d30;
-        text-align: center;
-        text-transform: uppercase;
-        border-radius: 10px;
-    }
-    .posts>.post>img{
-        width: 45vw;
-        border-radius: 10px;
-    }
+}
+.user-nav>form{
+    text-align: right;
+}
+.logout-btn{
+    padding: 3px;
+    margin-left: 50px;
+    background-color: transparent;
+    border: transparent;
+    color:#623838;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.btn:hover{
+    color: #ece4e4;
+}
+.register-btn{
+    color: #623838;
+}
+.login-btn {
+    color: #4c5441;
+}
+
+/*KONIEC NAWIGACJI------------------------------------------*/
+.search{
+    margin-left: 10vw;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    background-color: var(--color-content);
+}
+.search-box{
+    padding-left: 10px;
+    width: 50vw;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid var(--color-txt);;
+}
+.search-button{
+    border-radius: 0 10px 10px 0;
+    border: transparent;
+    border: 1px solid var(--color-txt);;
+}
+.search-icon{
+    width: 40px;
+}
+.posts{
+    margin-left: 10vw;
+    width: 80vw;
+    background-color: var(--color-content);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.post{
+    background-color: #d9bbb5;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 10px;
+}
+.post>div>a{
+    font-weight: normal;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.post>div>p{
+    font-weight: normal;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.posts>.post>h2{
+    display: block;
+    margin:0 0 30px 0;
+    padding: 10px 0;
+    width: 45vw;
+    /*padding: 10px 10vw;*/
+    background-color: #f5e4dd;
+    color: #312d30;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
+.posts>.post>img{
+    width: 45vw;
+    border-radius: 10px;
+}
+/*LOGOWANIE------------------------------------------*/
+.login-form{
+    padding-top: 20px;
+    display: flex;
+    width: 180px;
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--color-txt);
+    font-weight: bold;
+}
+.remember{
+    font-weight: normal;
+}
+.login-form>h2{
+    text-transform: uppercase;
+}
+.login-element{
+    margin-top:10px;
+}
+.checkbox{
+    margin-right: 10px;
+}
+.btn{
+    margin:10px auto;
+}

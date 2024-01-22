@@ -13,7 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,7 +30,7 @@ public class PostController {
     private final PostService postService;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-
+    public static String uploadPath = "src/main/resources/static/img/posts/";
     @Autowired
     public PostController(PostService postService, UserRepository userRepository, PostRepository postRepository)
     {
@@ -77,24 +85,41 @@ public class PostController {
     }
 
     @PostMapping("/createPost/submit")
-    public String createPost(@ModelAttribute("post") PostDto postDto, BindingResult result, Model model)
+    public String createPost(@ModelAttribute("post") PostDto postDto, BindingResult result, Model model, @RequestParam("image") MultipartFile file) throws IOException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         User user = userRepository.findByUsername(currentUserName);
         postDto.setUser(user);
 
+        String titleRegex = "^[a-zA-Z0-9 ]{3,60}$";
+        if (!postDto.getTitle().matches(titleRegex)) {
+            result.rejectValue("title", null, "Niepoprawny tytuł! (dozwolone litery, spacje i cyfry, maks. 60 znaków)");
+        }
+
+        if(file.isEmpty())
+        {
+            result.rejectValue("title", null, "Nie dodano pliku!");
+        }
+
         if(result.hasErrors()){
             model.addAttribute("post", postDto);
             return "createPost";
         }
 
+        Date dt = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String [] parts = Objects.requireNonNull(file.getContentType()).split("/");
+        String newFilename = "post" + dateFormat.format(dt) + "." + parts[1];
+        Path fileNameAndPath = Paths.get(uploadPath, newFilename);
+        Files.write(fileNameAndPath, file.getBytes());
+        postDto.setPicturePath("/img/posts/" + newFilename);
         postService.savePost(postDto);
-        return "unapprovedPosts";
+        return "redirect:/unapprovedPosts";
     }
 
     @PostMapping("/profile/{userId}/delete/{postId}")
-    public String deletePost(@PathVariable Long userId, @PathVariable Long postId, Model model)
+    public String deletePost(@PathVariable Long userId, @PathVariable Long postId)
     {
         Optional<Post> optionalPost = postRepository.findById(postId);
 

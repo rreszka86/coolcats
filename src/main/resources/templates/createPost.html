@@ -4,12 +4,15 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<form th:action="@{/createPost/submit}" method="post" th:object="${post}">
-    <label for="pictureTitle">Tytuł:</label>
-    <input type="text" name="pictureTitle" id="pictureTitle" th:field="*{title}" required>
-    <label for="pictureLink">Link do zdjęcia:</label>
-    <input type="text" name="pictureLink" id="pictureLink" th:field="*{picturePath}" required>
-    <button type="submit">Dodaj</button>
-</form>
+<div class="posts">
+    <form class="login-form" th:action="@{/createPost/submit}" method="post" th:object="${post}" enctype="multipart/form-data">
+        <label class="login-element" for="pictureTitle">Tytuł:</label>
+        <input class="login-element" type="text" name="pictureTitle" id="pictureTitle" th:field="*{title}" required>
+        <p class="login-element" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+        <label class="login-element" for="image">Dodaj zdjęcie:</label>
+        <input class="login-element" type="file" name="image" id="image" accept="image/*" required>
+        <button class="login-element btn" type="submit">Dodaj</button>
+    </form>
+</div>
 </body>
 </html>

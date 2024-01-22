@@ -4,17 +4,21 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<p th:text="${successMessage}"></p>
-<p th:text="${errorMessage}"></p>
-<form th:action="@{/login}" method="post">
-    <h2>Logowanie:</h2>
-    <label for="username">Login:</label>
-    <input type="text" name="username" id="username" required>
-    <label for="passwd">Hasło:</label>
-    <input type="password" name="passwd" id="passwd" required>
-    <input type="checkbox" name="remember-me" id="remember-me">
-    <label for="remember-me">Zapamiętaj mnie</label>
-    <button type="submit">Zaloguj</button>
-</form>
+
+<div class="posts">
+    <form class="login-form" th:action="@{/login}" method="post">
+        <h2>Logowanie:</h2>
+        <label class="login-element" for="username">Login:</label>
+        <input class="login-element" type="text" name="username" id="username" required>
+        <label class="login-element" for="passwd">Hasło:</label>
+        <input class="login-element" type="password" name="passwd" id="passwd" required>
+        <input class="checkbox login-element" type="checkbox" name="remember-me" id="remember-me">
+        <label class="remember login-element" for="remember-me">Zapamiętaj mnie</label>
+        <button class="login-element btn"  type="submit">Zaloguj</button>
+    </form>
+    <p th:text="${successMessage}"></p>
+    <p th:text="${errorMessage}"></p>
+</div>
+
 </body>
 </html>

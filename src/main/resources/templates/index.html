@@ -4,15 +4,17 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<form th:action="@{/}" method="get">
-    <input type="text" name="search" placeholder="Wyszukaj zatwierdzone posty">
-    <button type="submit"><img src="/img/search-icon.png" alt="ikona wyszukiwania" style="width: 30px"></button>
+<form class="search" th:action="@{/}" method="get">
+    <input class="search-box" type="text" name="search" placeholder="Wyszukaj zatwierdzone posty">
+    <button class="search-button" type="submit"><img class="search-icon" src="/img/search-icon.png" alt="ikona wyszukiwania" ></button>
 </form>
 <div class="posts">
     <div class="post" th:each="post : ${posts}" th:if="${post.getStatus()}=='verified'" th:with="userId=${post.getUser().getId()}">
         <h2 th:text="${post.title} + ${userId}"></h2>
-        <span th:text="'Utworzone ' + ${#dates.format(post.getCreatedAt(), 'dd-MM-yyyy')} + ' przez '"></span>
-        <a th:href="@{/profile/__${userId}__}" th:text="${post.getUser().getUsername()}"></a>
+        <div>
+            <p th:text="'Utworzone ' + ${#dates.format(post.getCreatedAt(), 'dd-MM-yyyy')} + ' przez '"></p>
+            <a th:href="@{/profile/__${userId}__}" th:text="${post.getUser().getUsername()}"></a>
+        </div>
         <img th:src="@{${post.picturePath}}" th:alt="${post.title}">
     </div>
 </div>

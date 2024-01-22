@@ -4,18 +4,20 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: SiteHeader}"></header>
-<form th:action="@{/register/submit}" method="post" th:object="${user}">
+<div class="posts">
+<form class="login-form" th:action="@{/register/submit}" method="post" th:object="${user}">
     <h2>Rejestracja:</h2>
-    <label for="username">Login:</label>
-    <input type="text" name="username" id="username" th:field="*{username}" required title="Podaj nazwę!">
-    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-    <label for="passwd">Hasło:</label>
-    <input type="password" name="passwd" id="passwd" th:field="*{passwd}" required title="Podaj hasło!">
-    <p th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></p>
-    <label for="email">E-mail:</label>
-    <input type="text" name="email" id="email" th:field="*{email}" required title="Podaj email!">
-    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-    <button type="submit">Zarejestruj</button>
+    <label class="login-element" for="username">Login:</label>
+    <input class="login-element" type="text" name="username" id="username" th:field="*{username}" required title="Podaj nazwę!">
+    <p class="login-element" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+    <label class="login-element" for="passwd">Hasło:</label>
+    <input class="login-element" type="password" name="passwd" id="passwd" th:field="*{passwd}" required title="Podaj hasło!">
+    <p class="login-element" th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></p>
+    <label class="login-element" for="email">E-mail:</label>
+    <input class="login-element" type="text" name="email" id="email" th:field="*{email}" required title="Podaj email!">
+    <p class="login-element" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    <button class="login-element btn" type="submit">Zarejestruj</button>
 </form>
+</div>
 </body>
 </html>
