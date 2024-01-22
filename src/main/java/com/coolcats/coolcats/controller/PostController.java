@@ -187,6 +187,10 @@ public class PostController {
             Post post = optionalPost.get();
             if (post.getUser().getId().equals(userId))
             {
+                String titleRegex = "^[a-zA-Z0-9 ]{3,60}$";
+                if (!title.matches(titleRegex)) {
+                    return "redirect:/error";
+                }
                 post.setTitle(title);
                 postRepository.save(post);
                 System.out.println("Before save: Post Title - " + post.getTitle() + ", User ID - " + post.getUser().getId());
