@@ -226,3 +226,10 @@ nav>.user-nav>a{
 .site-error>a{
     font-weight: bold;
 }
+/*ERROR------------------------------------------*/
+footer{
+    background-color: var(--color-nav);
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}

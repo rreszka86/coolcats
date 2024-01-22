@@ -50,5 +50,6 @@
     </div>
     <p th:if="${user.getPosts().isEmpty()}" th:text="'Brak dodanych postów'"></p>
 </div>
+<footer th:replace="~{fragments/footer :: SiteFooter}"></footer>
 </body>
 </html>
