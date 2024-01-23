@@ -5,19 +5,19 @@
     <nav>
         <a th:href="@{'/'}"><img src="/img/coolcats-logo.png" alt="coolcats logo" class="logo"></a>
        <div class="post-nav">
-           <a th:href="@{'/unapprovedPosts'}">Niezatwierdzone posty</a>
-           <a th:href="@{'/createPost'}">Dodaj post</a>
+           <a class="btn" th:href="@{'/unapprovedPosts'}">Niezatwierdzone posty</a>
+           <a class="btn" th:href="@{'/createPost'}">Dodaj post</a>
        </div>
 
         <div class="user-nav" sec:authorize="isAuthenticated()">
             <form  th:action="@{/logout}" method="post">
-                <p>Witaj, <a class="user-nav-logout" sec:authentication="name" th:href="@{'/profile'}"></a></p>
-                <button  class="btn logout-btn" type="submit">wyloguj</button>
+                <p>Witaj, <a sec:authentication="name" th:href="@{'/profile'}"></a></p>
+                <button  class="btn user-btn" type="submit">wyloguj</button>
             </form>
         </div>
         <div class = "user-nav" sec:authorize="!isAuthenticated()">
-            <a class="btn register-btn" th:href="@{'/register'}">Zarejestruj się</a>
-            <a class="btn login-btn" th:href="@{'/login'}">Zaloguj się</a>
+            <a class="btn user-btn" th:href="@{'/login'}">Zaloguj się</a>
+            <a class="btn user-btn" th:href="@{'/register'}">Zarejestruj się</a>
         </div>
     </nav>
 </header>
