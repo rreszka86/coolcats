@@ -7,54 +7,60 @@
     margin: 0;
     color: var(--color-txt);
     text-decoration: none;
-    font-family: fantasy;
+    font-family: sans-serif;
 }
 body{
     background-color: var(--color-nav);
 }
 .logo{
-    background-color: var(--color-nav);
-    height: 50px;
+    height: 140px;
 }
 nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 60px;
+    height: 150px;
     background-color: var(--color-nav);
-    font-size: 25px;
+    font-size: 30px;
     border-bottom: 1px solid var(--color-txt);
 }
 .post-nav{
-    width: 30vw;
+    /*width: 30vw;*/
+    height: 100px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     color: var(--color-txt);
+    font-weight: bold;
+
 }
 .post-nav>a{
     border-bottom: 1px solid var(--color-txt);
     padding: 5px;
 }
+.plus{
+    width: 25px;
+    margin-right: 5px;
+}
 .user-nav{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    width: 15vw;
+    align-items: flex-end;
+    margin-right: 10px;
+    height: 100px;
+    font-size: 25px;
 }
 .user-nav>form{
     display: flex;
     justify-content: space-around;
-    width: 15vw;
 }
 .user-btn{
-    background-color: transparent;
     font-size: 25px;
+    background-color: transparent;
     border: none;
-}
-.btn:hover{
-    color: #f3efef;
-    text-shadow: 0 0 2px var(--color-txt);
+    border-bottom: 1px solid var(--color-txt);
 }
 /*KONIEC NAWIGACJI------------------------------------------*/
 .search{
@@ -204,4 +210,36 @@ footer{
     display: flex;
     justify-content: center;
     padding: 10px 0;
+}
+@media (min-width: 992px) {
+    .logo{
+        height: 40px;
+    }
+    nav{
+        height: 50px;
+        font-size: 25px;
+    }
+    .post-nav{
+        width: 50%;
+        height: 40px;
+        flex-direction: row;
+    }
+    .user-nav{
+        width: 260px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+    }
+    .user-nav>form{
+        justify-content: space-around;
+        width: 90%;
+    }
+    .user-btn{
+        font-size: 22px;
+    }
+    .btn:hover{
+        color: #f3efef;
+        text-shadow: 0 0 2px var(--color-txt);
+    }
 }

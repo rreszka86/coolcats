@@ -6,7 +6,7 @@
         <a th:href="@{'/'}"><img src="/img/coolcats-logo.png" alt="coolcats logo" class="logo"></a>
        <div class="post-nav">
            <a class="btn" th:href="@{'/unapprovedPosts'}">Niezatwierdzone posty</a>
-           <a class="btn" th:href="@{'/createPost'}">Dodaj post</a>
+           <a class="btn" th:href="@{'/createPost'}"><img class="plus" src="/img/plus-icon.png" alt="plus">Dodaj post</a>
        </div>
 
         <div class="user-nav" sec:authorize="isAuthenticated()">
